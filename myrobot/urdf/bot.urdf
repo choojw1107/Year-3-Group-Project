@@ -1,0 +1,105 @@
+<?xml version="1.0" ?>
+<robot name="my_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <material name="blue">
+        <color rgba="0 0 0.8 1"/>
+    </material>
+
+    <material name="white">
+        <color rgba="1 1 1 1"/>
+    </material>
+
+    <gazebo reference="base_link">
+        <material><Gazebo/>
+        <White></White></material>
+    </gazebo>
+
+    <gazebo reference="right_wheel">
+        <material><Gazebo/>
+        <Blue></Blue></material>
+    </gazebo>
+
+    <gazebo reference="left_wheel">
+        <material><Gazebo/>
+        <Blue></Blue></material>
+    </gazebo>
+    
+    <!--Ground-->
+    <link name="base_footprint">
+    </link>  
+  
+    <!--Body of the mobile platform-->
+    <link name="base_link">
+    <visual>
+      <origin rpy="0.0 0.0 0.0" xyz="-0.25 -0.2275 0.0365"/>
+      <geometry>
+        <mesh filename="package://myrobot/stl/Chasis_New.STL" scale="0.001 0.001 0.001"/> 
+      </geometry>
+      <material name="white"/>
+    </visual>
+    <collision>
+      <origin rpy="0.0 0.0 0.0" xyz="-0.25 -0.2275 0.0365"/>
+      <geometry>
+        <mesh filename="package://myrobot/stl/Chasis_New.STL" scale="0.001 0.001 0.001" />
+      </geometry>
+    </collision>
+    </link>
+
+    <!--Joint between ground and base-->
+    <joint name="base_joint" type="fixed">
+        <origin xyz="0.0 0.0 0.1" rpy="0 0 0" />
+        <parent link="base_footprint" />
+        <child link="base_link" />
+    </joint>  
+
+    <!--Right wheel-->
+    <link name="right_wheel">
+    <visual>
+      <origin rpy="1.57 0.0 0.0" xyz="-0.0635 0.025 -0.0635"/>
+      <geometry>
+        <mesh filename="package://myrobot/stl/Wheel.STL" scale="0.001 0.001 0.001"/> 
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <origin rpy="1.57 0.0 0.0" xyz="-0.0635 0.025 -0.0635"/>
+      <geometry>
+        <mesh filename="package://myrobot/stl/Wheel.STL" scale="0.001 0.001 0.001" />
+      </geometry>
+    </collision>
+    </link>
+
+    <!--Joint between right wheel and base-->
+    <joint name="right_wheel_joint" type="continuous">
+        <origin xyz="0.0 0.2275 0.0" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="right_wheel" />
+        <axis xyz="0 1 0" />
+    </joint>  
+
+    <!--Left wheel-->
+    <link name="left_wheel">
+    <visual>
+      <origin rpy="-1.57 0.0 0.0" xyz="-0.0635 -0.025 0.0635"/>
+      <geometry>
+        <mesh filename="package://myrobot/stl/Wheel.STL" scale="0.001 0.001 0.001"/> 
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <origin rpy="-1.57 0.0 0.0" xyz="-0.0635 -0.025 0.0635"/>
+      <geometry>
+        <mesh filename="package://myrobot/stl/Wheel.STL" scale="0.001 0.001 0.001" />
+      </geometry>
+    </collision>
+    </link>  
+
+    <!--Joint between left wheel and base-->
+    <joint name="left_wheel_joint" type="continuous">
+        <origin xyz="0.0 -0.2275 0.0" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="left_wheel" />
+        <axis xyz="0 1 0" />
+    </joint>
+
+</robot>
